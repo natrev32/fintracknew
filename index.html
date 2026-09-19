@@ -76,21 +76,21 @@
     <nav class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3">
-                    <div class="p-2 bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white rounded-xl shadow-lg shadow-indigo-500/30">
-                        <i class="fa-solid fa-wallet text-xl"></i>
+                <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+                    <div class="p-2 bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white rounded-xl shadow-lg shadow-indigo-500/30 shrink-0">
+                        <i class="fa-solid fa-wallet text-lg sm:text-xl"></i>
                     </div>
-                    <div>
-                        <h1 class="font-bold text-lg leading-tight flex items-center gap-2">
+                    <div class="min-w-0">
+                        <h1 class="font-bold text-base sm:text-lg leading-tight flex items-center gap-2">
                             Finance Tracker
-                            <span class="text-[10px] bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full font-semibold border border-indigo-200 dark:border-indigo-800">Discord Sync</span>
+                            <span class="hidden sm:inline text-[10px] bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full font-semibold border border-indigo-200 dark:border-indigo-800">Discord Sync</span>
                         </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Pencatat Keuangan Automatic Ledger & Webhook Customizer</p>
+                        <p class="hidden sm:block text-xs text-slate-500 dark:text-slate-400 truncate">Pencatat Keuangan Automatic Ledger & Webhook Customizer</p>
                     </div>
                 </div>
 
                 <!-- Right Action Buttons -->
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
                     <button id="toggleDiscordModalBtn" class="flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-indigo-500/10 to-indigo-600/10 hover:from-indigo-500/20 hover:to-indigo-600/20 text-indigo-600 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/80 transition-all shadow-sm">
                         <i class="fa-brands fa-discord text-brand-discord text-base"></i>
                         <span class="hidden sm:inline">Konfigurasi Discord</span>
@@ -105,15 +105,15 @@
                         <i class="fa-solid fa-cloud text-sm"></i>
                     </button>
 
-                    <button id="lockBtn" class="p-2.5 rounded-xl text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-all hidden" title="Kunci Aplikasi">
-                        <i class="fa-solid fa-lock text-sm"></i>
+                    <button id="lockBtn" class="p-2.5 rounded-xl text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-all hidden" title="Keluar (Logout)">
+                        <i class="fa-solid fa-right-from-bracket text-sm"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8">
 
         <!-- Notification Toast Container -->
         <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
@@ -229,7 +229,7 @@
                     <p class="text-xs text-slate-400">Saldo dana yang Anda keluarkan ke tabungan dan investasi</p>
                 </div>
                 <div class="text-left sm:text-right">
-                    <span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block">Total Dana Terpisah</span>
+                    <span id="allocCombinedLabel" class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block">Total Dana Tabungan</span>
                     <span id="allocCombinedTotal" class="text-lg font-bold text-indigo-600 dark:text-indigo-400">Rp 0</span>
                 </div>
             </div>
@@ -265,7 +265,7 @@
             </div>
 
             <!-- Add Movement Form -->
-            <form id="allocationForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end mb-5 pb-5 border-b border-slate-100 dark:border-slate-700">
+            <form id="allocationForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-stretch sm:items-end mb-5 pb-5 border-b border-slate-100 dark:border-slate-700">
                 <div class="lg:col-span-2">
                     <label for="allocTanggal" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">Tanggal</label>
                     <input type="date" id="allocTanggal" required class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all">
@@ -441,18 +441,18 @@
     </main>
 
     <!-- Auth Overlay: Password Gate / Vault Lock -->
-    <div id="authOverlay" class="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4">
-        <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-8 space-y-6">
+    <div id="authOverlay" class="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-4">
+        <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-5 sm:p-8 space-y-5 sm:space-y-6 max-h-[94vh] overflow-y-auto">
             <div class="text-center space-y-3">
                 <div class="mx-auto w-14 h-14 bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white rounded-2xl shadow-lg shadow-indigo-500/30 flex items-center justify-center">
-                    <i class="fa-solid fa-lock text-xl"></i>
+                    <i id="authOverlayIcon" class="fa-solid fa-lock text-xl"></i>
                 </div>
                 <h2 class="text-xl font-bold text-slate-800 dark:text-white">Finance Tracker</h2>
-                <p id="authSubtitle" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Buat kata sandi untuk mengenkripsi seluruh data keuangan Anda secara lokal.</p>
+                <p id="authSubtitle" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Memuat...</p>
             </div>
 
-            <!-- Auth Tabs: cloud login / cloud signup -->
-            <div id="authTabBar" class="grid grid-cols-2 gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60">
+            <!-- Auth Tabs: cloud login / cloud signup (hidden until JS decides the mode) -->
+            <div id="authTabBar" class="hidden grid grid-cols-2 gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60">
                 <button type="button" id="authTabLogin" class="authtab-btn py-2.5 px-1 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm transition-all">Masuk</button>
                 <button type="button" id="authTabSignup" class="authtab-btn py-2.5 px-1 rounded-lg text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all">Daftar</button>
             </div>
@@ -518,15 +518,14 @@
                 </div>
 
                 <button type="submit" id="cloudLoginBtn" class="w-full py-3 px-4 bg-brand-discord hover:bg-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-brand-discord/25 transition-all text-sm flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Ambil Data dari Cloud
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Masuk
                 </button>
                 <button type="button" id="forgotPassBtn" class="w-full text-center text-xs text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-400 font-medium transition-colors py-1">
-                    Lupa kata sandi akun?
+                    Lupa kata sandi?
                 </button>
                 <button type="button" id="backToUnlockBtn" class="hidden w-full text-center text-xs text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-400 font-medium transition-colors py-1">
                     Kembali: buka data di perangkat ini
                 </button>
-                <p class="text-[10px] text-slate-400 leading-relaxed">Data Anda terenkripsi end-to-end — server hanya menyimpan ciphertext, tidak dapat membaca isi data Anda.</p>
             </form>
 
             <!-- Account Password Recovery (arrives via email reset link) -->
@@ -556,12 +555,6 @@
                     Batal dan kembali
                 </button>
             </form>
-
-            <div class="text-center pt-2 border-t border-slate-100 dark:border-slate-700/60 space-y-1">
-                <button type="button" id="authImportBtn" class="text-xs text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 font-medium transition-colors py-1.5">
-                    <i class="fa-solid fa-upload text-[10px]"></i> Impor Backup Terenkripsi
-                </button>
-            </div>
 
             <!-- Cloud Server Config (per-device) -->
             <div id="authCloudConfigPanel" class="hidden pt-4 mt-4 border-t border-slate-100 dark:border-slate-700/60 space-y-3">
@@ -594,7 +587,7 @@
                 </button>
             </div>
 
-            <div class="p-6 space-y-5 overflow-y-auto">
+            <div class="p-4 sm:p-6 space-y-5 overflow-y-auto">
                 <!-- Server Config (hidden when embedded in the code by the site owner) -->
                 <div id="cloudServerSection" class="space-y-3">
                     <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Server</p>
@@ -666,7 +659,7 @@
             </div>
 
             <!-- Modal Body - Split Pane View -->
-            <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="flex-1 overflow-y-auto p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
 
                 <!-- Left Pane: Settings & Builder Form (7 Cols) -->
                 <div class="lg:col-span-7 space-y-6">
@@ -770,6 +763,24 @@
                             </div>
                         </div>
 
+                        <!-- Portal Embed Colors -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Warna Embed Tabungan</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="color" id="colorTabunganInput" value="#6366f1" class="w-8 h-8 rounded-lg cursor-pointer border-0 bg-transparent">
+                                    <span class="text-xs font-mono text-slate-500" id="hexTabunganLabel">#6366f1</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Warna Embed Investasi</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="color" id="colorInvestasiInput" value="#f59e0b" class="w-8 h-8 rounded-lg cursor-pointer border-0 bg-transparent">
+                                    <span class="text-xs font-mono text-slate-500" id="hexInvestasiLabel">#f59e0b</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Custom Footer Text & Emojis Toggle -->
                         <div class="space-y-3">
                             <div>
@@ -841,18 +852,18 @@
                                         Keterangan: <span id="previewFieldKet">Gaji bulanan proyek website</span>
                                     </blockquote>
 
-                                    <!-- Stats Row: Saldo + Monthly Recap -->
+                                    <!-- Stats Row: labels change per preview type -->
                                     <div class="grid grid-cols-3 gap-2 pt-2.5 border-t border-slate-700/50 text-[11px]">
                                         <div class="min-w-0">
-                                            <span class="text-slate-400 text-[10px] block font-semibold uppercase tracking-wide truncate">Saldo</span>
+                                            <span id="previewStat1Label" class="text-slate-400 text-[10px] block font-semibold uppercase tracking-wide truncate">Saldo</span>
                                             <span id="previewFieldSaldo" class="font-bold text-white">Rp 5.250.000</span>
                                         </div>
                                         <div class="min-w-0">
-                                            <span class="text-slate-400 text-[10px] block font-semibold uppercase tracking-wide truncate">Masuk Bulan Ini</span>
+                                            <span id="previewStat2Label" class="text-slate-400 text-[10px] block font-semibold uppercase tracking-wide truncate">Masuk Bulan Ini</span>
                                             <span id="previewFieldMasuk" class="font-bold text-emerald-400">Rp 6.750.000</span>
                                         </div>
                                         <div class="min-w-0">
-                                            <span class="text-slate-400 text-[10px] block font-semibold uppercase tracking-wide truncate">Keluar Bulan Ini</span>
+                                            <span id="previewStat3Label" class="text-slate-400 text-[10px] block font-semibold uppercase tracking-wide truncate">Keluar Bulan Ini</span>
                                             <span id="previewFieldKeluar" class="font-bold text-rose-400">Rp 1.500.000</span>
                                         </div>
                                     </div>
@@ -973,6 +984,8 @@
                 botAvatar: 'https://cdn-icons-png.flaticon.com/512/2845/2845731.png',
                 colorMasuk: '#10b981',
                 colorKeluar: '#f43f5e',
+                colorTabungan: '#6366f1',
+                colorInvestasi: '#f59e0b',
                 footerText: 'Finance Tracker App • Automated Webhook Sync'
             };
         }
@@ -1029,8 +1042,12 @@
         const botAvatarInput = document.getElementById('botAvatarInput');
         const colorMasukInput = document.getElementById('colorMasukInput');
         const colorKeluarInput = document.getElementById('colorKeluarInput');
+        const colorTabunganInput = document.getElementById('colorTabunganInput');
+        const colorInvestasiInput = document.getElementById('colorInvestasiInput');
         const hexMasukLabel = document.getElementById('hexMasukLabel');
         const hexKeluarLabel = document.getElementById('hexKeluarLabel');
+        const hexTabunganLabel = document.getElementById('hexTabunganLabel');
+        const hexInvestasiLabel = document.getElementById('hexInvestasiLabel');
         const footerTextInput = document.getElementById('footerTextInput');
         const testWebhookBtn = document.getElementById('testWebhookBtn');
         const saveWebhookSettingsBtn = document.getElementById('saveWebhookSettingsBtn');
@@ -1054,15 +1071,14 @@
 
         // ================= Password Vault (AES-256-GCM via WebCrypto) =================
         const VAULT_STORAGE_KEY = 'ft_vault';
+        const SESSION_PASS_KEY = 'ft_session_pass'; // sessionStorage: survives refresh, cleared when the tab closes
         const PBKDF2_ITERATIONS = 310000;
-        const AUTO_LOCK_MINUTES = 10;
         const MAX_FAILED_ATTEMPTS = 5;
         const LOCKOUT_COOLDOWN_MS = 30000;
 
         let vaultCryptoKey = null;      // CryptoKey, in memory only while unlocked
         let authFailedAttempts = 0;
         let lockoutCooldownUntil = 0;
-        let autoLockTimeout = null;
 
         // Auth DOMs
         const authOverlay = document.getElementById('authOverlay');
@@ -1207,6 +1223,7 @@
             currentAuthMode = mode;
             authOverlay.classList.remove('hidden');
             unlockErrorMsg.classList.add('hidden');
+            clearSessionLoading(); // re-enable forms after the neutral loading state
 
             if (mode === 'unlock') {
                 authTabBar.classList.add('hidden');
@@ -1229,7 +1246,7 @@
             }
         }
 
-        function initAuthFlow() {
+        async function initAuthFlow() {
             if (!window.crypto || !crypto.subtle) {
                 // No secure context (plain HTTP): run in legacy plaintext mode
                 legacyPlaintextMode = true;
@@ -1238,24 +1255,62 @@
                 bootApp();
                 return;
             }
+            // While the session unlock runs (~1s of PBKDF2), keep the overlay in
+            // a neutral "opening..." state instead of flashing the login form
+            const hasSession = Boolean(sessionStorage.getItem(SESSION_PASS_KEY));
+            if (hasSession) showSessionLoading();
+            if (await trySessionUnlock()) return;
             showAuthMode(readVault() ? 'unlock' : 'cloud');
             // Create the Supabase client early (embedded/saved config) so that a
             // password-recovery email link is detected on page load
             getCloudClient();
         }
 
+        // Neutral loading state: all forms hidden, only a spinner is shown
+        function showSessionLoading() {
+            authOverlay.classList.remove('hidden');
+            [authUnlockForm, authCloudForm, authCloudConfigPanel, authResetForm].forEach(el => el.classList.add('hidden'));
+            authTabBar.classList.add('hidden');
+            authSubtitle.textContent = 'Membuka data Anda...';
+            document.getElementById('authOverlayIcon').className = 'fa-solid fa-spinner fa-spin text-xl';
+            document.querySelectorAll('#authOverlay input, #authOverlay button[type="submit"]').forEach(el => el.disabled = true);
+        }
+
+        function clearSessionLoading() {
+            document.querySelectorAll('#authOverlay input, #authOverlay button[type="submit"]').forEach(el => el.disabled = false);
+            document.getElementById('authOverlayIcon').className = 'fa-solid fa-lock text-xl';
+        }
+
         // Shared boot path after a successful vault decryption
-        async function bootFromVault(key, state) {
+        async function bootFromVault(key, state, password) {
             vaultCryptoKey = key;
             transactions = sanitizeTransactions(state.transactions);
             webhookLogs = sanitizeWebhookLogs(state.webhookLogs);
             allocations = sanitizeAllocations(state.allocations);
             discordSettings = { ...defaultDiscordSettings(), ...(state.discordSettings || {}) };
 
+            // Remember the password for this tab only: refresh auto-unlocks,
+            // closing the tab clears it
+            if (password) sessionStorage.setItem(SESSION_PASS_KEY, password);
+
             authOverlay.classList.add('hidden');
             setSecurityButtonsVisible(true);
             bootApp();
-            startAutoLockTimer();
+        }
+
+        // Auto-unlock on load when the tab session is still alive
+        async function trySessionUnlock() {
+            const pass = sessionStorage.getItem(SESSION_PASS_KEY);
+            if (!pass || !readVault()) return false;
+            try {
+                const { key, state } = await openVaultWithPassword(pass);
+                await bootFromVault(key, state, pass);
+                return true;
+            } catch {
+                // Vault was re-keyed elsewhere — drop the stale session
+                sessionStorage.removeItem(SESSION_PASS_KEY);
+                return false;
+            }
         }
 
         function bootApp() {
@@ -1266,21 +1321,9 @@
             renderAllocations();
         }
 
-        function startAutoLockTimer() {
-            ['click', 'keydown', 'mousemove', 'touchstart', 'scroll'].forEach(evt => {
-                document.addEventListener(evt, resetAutoLockTimer, { passive: true });
-            });
-            resetAutoLockTimer();
-        }
-
-        function resetAutoLockTimer() {
-            clearTimeout(autoLockTimeout);
-            autoLockTimeout = setTimeout(() => {
-                if (vaultCryptoKey) lockApp();
-            }, AUTO_LOCK_MINUTES * 60 * 1000);
-        }
-
-        async function lockApp() {
+        // No auto-lock: the app stays usable while the tab is open. Leaving is
+        // an explicit logout (cloud sign-out + local vault removal).
+        async function logoutApp() {
             // Flush pending encrypted writes BEFORE wiping memory, so nothing is lost
             await vaultPersistChain.catch(() => {});
             vaultCryptoKey = null;
@@ -1289,7 +1332,14 @@
             allocations = [];
             discordSettings = defaultDiscordSettings();
 
-            // Clear sensitive UI before showing the lock screen
+            // Full sign-out: leave the cloud session and remove the local vault
+            const sb = getCloudClient();
+            if (sb) { try { await sb.auth.signOut(); } catch {} }
+            localStorage.removeItem(VAULT_STORAGE_KEY);
+            localStorage.removeItem(CLOUD_SYNCED_AT_KEY);
+            sessionStorage.removeItem(SESSION_PASS_KEY);
+
+            // Clear sensitive UI before showing the login screen
             transactionTableBody.innerHTML = '';
             cardTotalMasuk.textContent = formatRp(0);
             cardTotalKeluar.textContent = formatRp(0);
@@ -1299,8 +1349,8 @@
             renderAllocations();
 
             setSecurityButtonsVisible(false);
-            showAuthMode('unlock');
-            showToast('Aplikasi dikunci.', 'info');
+            showAuthMode('cloud');
+            showToast('Anda telah keluar. Data tetap aman di cloud.', 'info');
         }
 
         // ----- Unlock (local vault, single password) -----
@@ -1324,7 +1374,7 @@
                 const { key, state } = await openVaultWithPassword(pass);
                 authFailedAttempts = 0;
                 unlockPasswordInput.value = '';
-                await bootFromVault(key, state);
+                await bootFromVault(key, state, pass);
             } catch (err) {
                 authFailedAttempts++;
                 if (authFailedAttempts >= MAX_FAILED_ATTEMPTS) {
@@ -1342,7 +1392,7 @@
         });
 
         // ----- Manual lock -----
-        lockBtn.addEventListener('click', lockApp);
+        lockBtn.addEventListener('click', logoutApp);
 
         // Switch from the local unlock screen to the cloud Masuk/Daftar tabs
         goCloudAuthBtn.addEventListener('click', () => showAuthMode('cloud'));
@@ -1574,8 +1624,8 @@
             document.getElementById('authCloudUsernameLabel').textContent = isSignup ? 'Username' : 'Username atau Email';
             authCloudUsernameInput.placeholder = isSignup ? '3-30 karakter' : 'username atau email@contoh.com';
             cloudLoginBtn.innerHTML = isSignup
-                ? '<i class="fa-solid fa-user-plus"></i> Buat Akun Cloud'
-                : '<i class="fa-solid fa-cloud-arrow-down"></i> Ambil Data dari Cloud';
+                ? '<i class="fa-solid fa-user-plus"></i> Daftar'
+                : '<i class="fa-solid fa-cloud-arrow-down"></i> Masuk';
             document.getElementById('forgotPassBtn').classList.toggle('hidden', isSignup);
         }
 
@@ -1737,7 +1787,7 @@
                     } else if (error) throw error;
 
                     if (!data.session) {
-                        cloudLoginError.textContent = 'Pendaftaran berhasil — cek email Anda untuk konfirmasi (atau matikan "Confirm email" di pengaturan Supabase), lalu masuk lewat tab Masuk.';
+                        cloudLoginError.textContent = 'Pendaftaran berhasil — cek email Anda untuk konfirmasi, lalu masuk kembali lewat tab Masuk.';
                         cloudLoginError.classList.remove('hidden');
                         return;
                     }
@@ -1752,7 +1802,7 @@
                         try {
                             const { key, state } = await openVaultWithPassword(password);
                             resetCloudAuthUI();
-                            await bootFromVault(key, state);
+                            await bootFromVault(key, state, password);
                             showToast(`Selamat datang kembali, @${username}!`, 'success');
                             return;
                         } catch {
@@ -1772,7 +1822,7 @@
                     resetCloudAuthUI();
                     await bootFromVault(vaultCryptoKey, {
                         transactions, webhookLogs, allocations, discordSettings
-                    });
+                    }, password);
                     showToast(`Selamat datang, @${username}! Akun dibuat dan data terenkripsi tersimpan.`, 'success');
                 } else {
                     // Accept username OR email (email works even if the profile row is missing)
@@ -1794,7 +1844,7 @@
                         resetCloudAuthUI();
                         await bootFromVault(vaultCryptoKey, {
                             transactions, webhookLogs, allocations, discordSettings
-                        });
+                        }, password);
                         showToast('Data baru dibuat dan tersimpan di cloud.', 'success');
                         return;
                     }
@@ -1806,7 +1856,7 @@
                         // Single password: the account password decrypts the vault
                         const { key, state } = await openVaultWithPassword(password);
                         resetCloudAuthUI();
-                        await bootFromVault(key, state);
+                        await bootFromVault(key, state, password);
                         showToast('Selamat datang kembali!', 'success');
                     } catch {
                         // Key mismatch: legacy two-password vault or post-reset data
@@ -1856,7 +1906,7 @@
                 resetCloudAuthUI();
                 await bootFromVault(vaultCryptoKey, {
                     transactions, webhookLogs, allocations, discordSettings
-                });
+                }, accountPass);
                 showToast('Data lama berhasil dibuka dan enkripsi diselaraskan dengan kata sandi akun.', 'success');
             } catch (err) {
                 console.error('Legacy unlock failed:', err);
@@ -1890,7 +1940,7 @@
             resetCloudAuthUI();
             await bootFromVault(vaultCryptoKey, {
                 transactions, webhookLogs, allocations, discordSettings
-            });
+            }, accountPass);
             showToast('Data baru dimulai.', 'info');
         });
 
@@ -1952,7 +2002,7 @@
                                 </div>
                                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
                             </div>
-                            <p class="text-[10px] text-slate-400 leading-relaxed">Setiap perubahan data otomatis terunggah terenkripsi. Di perangkat lain: masuk dengan akun cloud dari layar kunci, lalu buka dengan kata sandi vault.</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed">Setiap perubahan data otomatis tersimpan terenkripsi ke akun Anda. Di perangkat lain: buka website, tab Masuk, dan gunakan username + kata sandi yang sama.</p>
                             <div class="flex items-center gap-2">
                                 <button id="cloudSyncNowBtn" class="flex-1 py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all text-xs flex items-center justify-center gap-1.5">
                                     <i class="fa-solid fa-rotate"></i> Sinkronkan Sekarang
@@ -1992,7 +2042,7 @@
                             <button id="linkAccountBtn" class="w-full py-2.5 bg-brand-discord hover:bg-indigo-600 text-white font-semibold rounded-xl shadow-md transition-all text-xs flex items-center justify-center gap-1.5">
                                 <i class="fa-solid fa-cloud-arrow-up"></i> Hubungkan &amp; Unggah Data
                             </button>
-                            <p class="text-[10px] text-slate-400 leading-relaxed">Kata sandi akun cloud hanya untuk login — terpisah dari kata sandi vault (kunci enkripsi). Lupa kata sandi akun bisa direset via email tanpa kehilangan data.</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed">Gunakan username dan kata sandi yang sama di semua perangkat Anda. Lupa kata sandi? Atur ulang lewat email dari layar Masuk.</p>
                         </div>
                     `;
                     document.getElementById('linkAccountBtn').addEventListener('click', linkCloudAccount);
@@ -2087,6 +2137,8 @@
                     discordSettings = defaultDiscordSettings();
                     localStorage.setItem(VAULT_STORAGE_KEY, JSON.stringify(row.blob));
                     localStorage.setItem(CLOUD_SYNCED_AT_KEY, row.updated_at);
+                    // The remote vault may be keyed differently — drop the tab session
+                    sessionStorage.removeItem(SESSION_PASS_KEY);
 
                     transactionTableBody.innerHTML = '';
                     cardTotalMasuk.textContent = formatRp(0);
@@ -2563,6 +2615,7 @@
         let activeAllocTab = 'tabungan';
 
         const allocCombinedTotal = document.getElementById('allocCombinedTotal');
+        const allocCombinedLabel = document.getElementById('allocCombinedLabel');
         const allocSaldo = document.getElementById('allocSaldo');
         const allocTotalSetor = document.getElementById('allocTotalSetor');
         const allocTotalTarik = document.getElementById('allocTotalTarik');
@@ -2606,14 +2659,15 @@
         function renderAllocations() {
             const label = activeAllocTab === 'tabungan' ? 'Tabungan' : 'Investasi';
             const t = allocTabTotals(activeAllocTab);
-            const combined = allocTabTotals('tabungan').saldo + allocTabTotals('investasi').saldo;
 
             allocActiveLabel.textContent = label;
             allocSaldo.textContent = formatRp(t.saldo);
             allocTotalSetor.textContent = formatRp(t.setor);
             allocTotalTarik.textContent = formatRp(t.tarik);
             allocCount.textContent = `${t.count} catatan`;
-            allocCombinedTotal.textContent = formatRp(combined);
+            // Header total follows the active tab (not the combined figure)
+            allocCombinedLabel.textContent = `Total Dana ${label}`;
+            allocCombinedTotal.textContent = formatRp(t.saldo);
 
             allocList.innerHTML = '';
             const items = allocations
@@ -2675,6 +2729,12 @@
             allocNominal.value = '';
             allocKeterangan.value = '';
             showToast(`Catatan ${activeAllocTab === 'tabungan' ? 'tabungan' : 'investasi'} tersimpan!`, 'success');
+
+            // Portal webhook notification (Tabungan / Investasi embed)
+            const newAlloc = allocations[allocations.length - 1];
+            if (discordSettings.enabled && discordSettings.url && shouldTriggerAllocationWebhook(newAlloc)) {
+                sendAllocationWebhook(newAlloc);
+            }
         });
 
         window.deleteAllocation = function(id) {
@@ -2703,7 +2763,7 @@
         // ================= Backup Export / Import =================
         const exportModal = document.getElementById('exportModal');
         const importBackupBtn = document.getElementById('importBackupBtn');
-        const authImportBtn = document.getElementById('authImportBtn');
+        const authImportBtn = null; // removed from the lock screen (import lives in the app toolbar)
         const importFileInput = document.getElementById('importFileInput');
 
         function downloadJsonFile(filename, dataObj) {
@@ -2766,7 +2826,7 @@
         });
 
         // ----- Import: encrypted vault file or legacy plaintext transactions -----
-        [importBackupBtn, authImportBtn].forEach(btn => btn.addEventListener('click', () => importFileInput.click()));
+        importBackupBtn.addEventListener('click', () => importFileInput.click());
 
         importFileInput.addEventListener('change', () => {
             const file = importFileInput.files[0];
@@ -2871,10 +2931,14 @@
             botAvatarInput.value = discordSettings.botAvatar || 'https://cdn-icons-png.flaticon.com/512/2845/2845731.png';
             colorMasukInput.value = discordSettings.colorMasuk || '#10b981';
             colorKeluarInput.value = discordSettings.colorKeluar || '#f43f5e';
+            colorTabunganInput.value = discordSettings.colorTabungan || '#6366f1';
+            colorInvestasiInput.value = discordSettings.colorInvestasi || '#f59e0b';
             footerTextInput.value = discordSettings.footerText || 'Finance Tracker App • Automated Webhook Sync';
 
             hexMasukLabel.textContent = colorMasukInput.value;
             hexKeluarLabel.textContent = colorKeluarInput.value;
+            hexTabunganLabel.textContent = colorTabunganInput.value;
+            hexInvestasiLabel.textContent = colorInvestasiInput.value;
 
             // Trigger Radios
             const radios = document.getElementsByName('triggerPreset');
@@ -2899,15 +2963,20 @@
         }
 
         // Live Preview Event Listeners
-        [botNameInput, botAvatarInput, colorMasukInput, colorKeluarInput, footerTextInput].forEach(elem => {
+        [botNameInput, botAvatarInput, colorMasukInput, colorKeluarInput, colorTabunganInput, colorInvestasiInput, footerTextInput].forEach(elem => {
             elem.addEventListener('input', updateLivePreview);
         });
 
         colorMasukInput.addEventListener('input', (e) => hexMasukLabel.textContent = e.target.value);
         colorKeluarInput.addEventListener('input', (e) => hexKeluarLabel.textContent = e.target.value);
+        colorTabunganInput.addEventListener('input', (e) => hexTabunganLabel.textContent = e.target.value);
+        colorInvestasiInput.addEventListener('input', (e) => hexInvestasiLabel.textContent = e.target.value);
 
+        // Preview cycles: masuk → keluar → tabungan → investasi
+        const PREVIEW_ORDER = ['masuk', 'keluar', 'tabungan', 'investasi'];
         togglePreviewTypeBtn.addEventListener('click', () => {
-            currentPreviewType = currentPreviewType === 'masuk' ? 'keluar' : 'masuk';
+            const idx = PREVIEW_ORDER.indexOf(currentPreviewType);
+            currentPreviewType = PREVIEW_ORDER[(idx + 1) % PREVIEW_ORDER.length];
             updateLivePreview();
         });
 
@@ -2917,27 +2986,36 @@
             previewFooterText.textContent = footerTextInput.value || 'Finance Tracker App';
 
             const today = new Date();
+            const t = currentPreviewType;
 
-            if (currentPreviewType === 'masuk') {
-                previewEmbedCard.style.borderColor = colorMasukInput.value;
-                previewEmbedTitle.textContent = "Uang Masuk (Pemasukan)";
-                previewFieldNominal.textContent = formatRp(1500000);
-                previewFieldNominal.className = "text-xl font-extrabold text-emerald-400 tracking-tight leading-tight";
-                previewFieldKategori.textContent = "Gaji & Upah";
-                previewFieldKet.textContent = "Gaji bulanan proyek website";
-                previewFieldSaldo.textContent = formatRp(5250000);
+            if (t === 'masuk' || t === 'keluar') {
+                const isMasuk = t === 'masuk';
+                previewEmbedCard.style.borderColor = isMasuk ? colorMasukInput.value : colorKeluarInput.value;
+                previewEmbedTitle.textContent = isMasuk ? "Uang Masuk (Pemasukan)" : "Uang Keluar (Pengeluaran)";
+                previewFieldNominal.textContent = formatRp(isMasuk ? 1500000 : 250000);
+                previewFieldNominal.className = `text-xl font-extrabold ${isMasuk ? 'text-emerald-400' : 'text-rose-400'} tracking-tight leading-tight`;
+                previewFieldKategori.textContent = isMasuk ? "Gaji & Upah" : "Makanan & Minuman";
+                previewFieldKet.textContent = isMasuk ? "Gaji bulanan proyek website" : "Makan malam keluarga";
+                previewStat1Label.textContent = "Saldo";
+                previewFieldSaldo.textContent = formatRp(isMasuk ? 5250000 : 5000000);
+                previewStat2Label.textContent = "Masuk Bulan Ini";
                 previewFieldMasuk.textContent = formatRp(6750000);
-                previewFieldKeluar.textContent = formatRp(1500000);
+                previewStat3Label.textContent = "Keluar Bulan Ini";
+                previewFieldKeluar.textContent = formatRp(isMasuk ? 1500000 : 1750000);
             } else {
-                previewEmbedCard.style.borderColor = colorKeluarInput.value;
-                previewEmbedTitle.textContent = "Uang Keluar (Pengeluaran)";
-                previewFieldNominal.textContent = formatRp(250000);
-                previewFieldNominal.className = "text-xl font-extrabold text-rose-400 tracking-tight leading-tight";
-                previewFieldKategori.textContent = "Makanan & Minuman";
-                previewFieldKet.textContent = "Makan malam keluarga";
-                previewFieldSaldo.textContent = formatRp(5000000);
-                previewFieldMasuk.textContent = formatRp(6750000);
-                previewFieldKeluar.textContent = formatRp(1750000);
+                const isTabungan = t === 'tabungan';
+                previewEmbedCard.style.borderColor = isTabungan ? colorTabunganInput.value : colorInvestasiInput.value;
+                previewEmbedTitle.textContent = isTabungan ? "Tabungan — Setor Dana" : "Investasi — Setor Dana";
+                previewFieldNominal.textContent = formatRp(1000000);
+                previewFieldNominal.className = `text-xl font-extrabold ${isTabungan ? 'text-indigo-400' : 'text-amber-400'} tracking-tight leading-tight`;
+                previewFieldKategori.textContent = isTabungan ? "Tabungan" : "Investasi";
+                previewFieldKet.textContent = isTabungan ? "Setor tabungan rutin bulanan" : "Beli emas 2 gram";
+                previewStat1Label.textContent = "Saldo Portal";
+                previewFieldSaldo.textContent = formatRp(8500000);
+                previewStat2Label.textContent = "Total Disetor";
+                previewFieldMasuk.textContent = formatRp(10000000);
+                previewStat3Label.textContent = "Total Ditarik";
+                previewFieldKeluar.textContent = formatRp(1500000);
             }
 
             previewFieldTanggal.textContent = formatDate(today.toISOString().split('T')[0]);
@@ -3002,6 +3080,86 @@
                 else keluar += t.nominal;
             });
             return { masuk, keluar };
+        }
+
+        // Portal webhook: distinct embed per portal (Tabungan vs Investasi)
+        function shouldTriggerAllocationWebhook(alloc) {
+            const triggerMode = discordSettings.trigger || 'all';
+            // Cash-flow view: setor = dana keluar dari dompet, tarik = dana kembali
+            if (triggerMode === 'expense_only' && alloc.arah !== 'setor') return false;
+            const minNom = parseFloat(discordSettings.minNominal) || 0;
+            if (minNom > 0 && alloc.nominal < minNom) return false;
+            return true;
+        }
+
+        async function sendAllocationWebhook(alloc) {
+            if (!discordSettings.url) return;
+            if (!isValidDiscordWebhookUrl(discordSettings.url)) return;
+            if (webhookRateLimited()) return;
+
+            const portalLabel = alloc.jenis === 'tabungan' ? 'Tabungan' : 'Investasi';
+            const arahLabel = alloc.arah === 'setor' ? 'Setor Dana' : 'Tarik Dana';
+            const colorHex = alloc.jenis === 'tabungan' ? discordSettings.colorTabungan : discordSettings.colorInvestasi;
+
+            const stats = allocTabTotals(alloc.jenis);
+            const combined = allocTabTotals('tabungan').saldo + allocTabTotals('investasi').saldo;
+
+            const description = [
+                `# ${formatRp(alloc.nominal)}`,
+                `**${portalLabel}** — ${formatDate(alloc.tanggal)}`,
+                '',
+                `> Keterangan: ${alloc.keterangan}`
+            ].join('\n');
+
+            const payload = {
+                username: discordSettings.botName || "Finance Tracker Bot",
+                avatar_url: discordSettings.botAvatar,
+                embeds: [
+                    {
+                        title: `${portalLabel} — ${arahLabel}`,
+                        color: hexToDecimal(colorHex || '#6366f1'),
+                        description: description,
+                        fields: [
+                            { name: `Saldo ${portalLabel}`, value: `**${formatRp(stats.saldo)}**`, inline: true },
+                            { name: "Total Disetor", value: formatRp(stats.setor), inline: true },
+                            { name: "Total Ditarik", value: formatRp(stats.tarik), inline: true },
+                            { name: "Total Dana Terpisah", value: `**${formatRp(combined)}**`, inline: false }
+                        ],
+                        footer: { text: discordSettings.footerText, icon_url: discordSettings.botAvatar },
+                        timestamp: new Date().toISOString()
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(discordSettings.url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                addWebhookLog({
+                    id: Date.now(),
+                    time: new Date().toLocaleTimeString('id-ID'),
+                    txName: `${portalLabel} ${arahLabel} (${formatRp(alloc.nominal)})`,
+                    status: response.ok ? 204 : response.status,
+                    success: response.ok
+                });
+                if (response.ok) {
+                    showToast(`Notifikasi ${portalLabel} terkirim ke Discord!`, 'success');
+                } else {
+                    showToast('Gagal mengirim ke Discord Webhook', 'error');
+                }
+            } catch (err) {
+                console.error('Webhook Error:', err);
+                addWebhookLog({
+                    id: Date.now(),
+                    time: new Date().toLocaleTimeString('id-ID'),
+                    txName: `${portalLabel} ${arahLabel}`,
+                    status: 'Network Error',
+                    success: false
+                });
+                showToast('Gagal terhubung ke Discord Webhook', 'error');
+            }
         }
 
         async function sendDiscordNotification(tx, updatedBalance) {
@@ -3168,6 +3326,8 @@
                 botAvatar: botAvatarInput.value.trim(),
                 colorMasuk: colorMasukInput.value,
                 colorKeluar: colorKeluarInput.value,
+                colorTabungan: colorTabunganInput.value,
+                colorInvestasi: colorInvestasiInput.value,
                 footerText: footerTextInput.value.trim()
             };
 
